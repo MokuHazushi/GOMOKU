@@ -3,11 +3,10 @@
 
 class Board {
 	private:
-	unsigned short size;
-
+		unsigned short size;
 	public:
-	Board(unsigned short);
-	unsigned short getSize();
+		Board(unsigned short);
+		unsigned short getSize();
 };
 
 #endif
