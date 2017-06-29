@@ -7,13 +7,8 @@
 
 int main()
 {
-	std::cout << "Hello World!" << std::endl;
-	Board b(9);
-	std::cout << b.getSize() << std::endl;
-	graphicTest();
+	Board b(19);
+	b.printBoard();
 
-	Game g(&b, "player1", "player2");
-	std::cout << g.getBoard()->getSize() << std::endl;
-	std::cout << g.getPlayerBlack() << std::endl;
 	return 0;
 }
