@@ -19,6 +19,7 @@ class Game {
 	public:
 		Game(Board*, std::string, std::string);
 
+		void startGame();
 		void switchTurn();
 
 		Board* getBoard();

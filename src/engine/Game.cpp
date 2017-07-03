@@ -14,7 +14,12 @@ Game::Game(Board* brd, std::string pB, std::string pW) :
 
 //METHODS
 
-void Game::switchTurn() {
+void Game::startGame()
+{
+}
+
+void Game::switchTurn()
+{
 	switch(turn) {
 		case black_turn:
 			turn = white_turn;

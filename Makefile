@@ -1,6 +1,6 @@
 ### COMPILER 
 CC		= g++
-CFLAGS		= -Wall -c
+CFLAGS		= -std=c++0x -Wall -c
 LFLAGS		= -Wall
 AR		= ar
 AFLAGS		= -cr
@@ -42,7 +42,7 @@ all: $(TARGET)
 $(TARGET) : $(OBJ)/$(MAIN) $(ENGINE_LIBFILE) $(GRAPHIC_LIBFILE)
 	$(CC) $(LFLAGS) $< -o $@ \
 		-L$(SDL_LIBFOLDER) -L$(LIB) \
-		-l$(SDL_LIB) -l$(ENGINE_LIB) -l$(GRAPHIC_LIB)
+		-l$(ENGINE_LIB) -l$(GRAPHIC_LIB) -l$(SDL_LIB) #CAREFUL ORDER MATTER
 
 
 $(ENGINE_LIBFILE) : $(ENGINE_OBJS)
@@ -62,7 +62,7 @@ $(OBJ)/graphic/%.o: $(SRC)/graphic/%.cpp
 
 
 $(OBJ)/%.o: $(SRC)/%.cpp
-	$(CC) -o $@ $(CFLAGS) $< -I$(INCLUDE)
+	$(CC) -o $@ $(CFLAGS) $< -I$(INCLUDE) -I$(SDL_HEADERS)
 	
 clean:
 	rm -rf $(BIN)/* $(OBJ)/* $(LIB)/*
