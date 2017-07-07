@@ -7,9 +7,8 @@
 
 int main()
 {
-	initGraphics();
-	Board b(19);
-	b.printBoard();
+	MainFrame frame;
+	frame.startMainLoop();
 
 	return 0;
 }
