@@ -1,7 +1,10 @@
+#define GL3_PROTOTYPES 1
+
 #include <iostream>
 
 #include "SDL.h"
 #include "SDL_error.h"
+#include "gl3.h"
 
 #include "graphic/Init.h"
 
@@ -58,6 +61,7 @@ void MainFrame::startMainLoop()
 {
 	bool running;
 	SDL_Event events;
+	float vertices[] = { -0.5,-0.5, 0.0,0.5, 0.5,-0.5 };
 
 	running = true;
 	while (running) {
@@ -65,7 +69,13 @@ void MainFrame::startMainLoop()
 		if (events.window.event == SDL_WINDOWEVENT_CLOSE) {
 			running = false;
 		}
+		glClear(GL_COLOR_BUFFER_BIT);
+		glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 0, vertices);
+		glEnableVertexAttribArray(0);
+		glDrawArrays(GL_TRIANGLES, 0, 3);
+		glDisableVertexAttribArray(0);
+		SDL_GL_SwapWindow(win);
 	}
 
-	destroyGaphics();
+	destroyGraphics();
 }

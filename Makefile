@@ -32,6 +32,11 @@ SDL_HEADERS	= "/usr/local/include/SDL2"
 SDL_LIBFOLDER	= "/usr/local/lib"
 SDL_LIB		= "SDL2"
 
+GL3_HEADERS	= "/usr/local/include/GL3"
+GL_LIB 		= "GL"
+# You can get the opengl libraries by installing GLUT with apt-get install freeglut3-dev
+# GLUT depends on OpenGL, this way installing GLUT will trigger the dependencies needed
+
 ### FINAL TARGET
 MAIN		= Main.o
 TARGET		= gomoku
@@ -42,7 +47,8 @@ all: $(TARGET)
 $(TARGET) : $(OBJ)/$(MAIN) $(ENGINE_LIBFILE) $(GRAPHIC_LIBFILE)
 	$(CC) $(LFLAGS) $< -o $@ \
 		-L$(SDL_LIBFOLDER) -L$(LIB) \
-		-l$(ENGINE_LIB) -l$(GRAPHIC_LIB) -l$(SDL_LIB) #CAREFUL ORDER MATTER
+		-l$(ENGINE_LIB) -l$(GRAPHIC_LIB) -l$(SDL_LIB) \
+		-l$(GL_LIB) #CAREFUL ORDER MATTER
 
 
 $(ENGINE_LIBFILE) : $(ENGINE_OBJS)
@@ -58,7 +64,7 @@ $(GRAPHIC_LIBFILE) : $(GRAPHIC_OBJS)
 
 $(OBJ)/graphic/%.o: $(SRC)/graphic/%.cpp
 	mkdir -p $(OBJ)/graphic
-	$(CC) -o $@ $(CFLAGS) $< -I$(INCLUDE) -I$(SDL_HEADERS)
+	$(CC) -o $@ $(CFLAGS) $< -I$(INCLUDE) -I$(SDL_HEADERS) -I$(GL3_HEADERS)
 
 
 $(OBJ)/%.o: $(SRC)/%.cpp
