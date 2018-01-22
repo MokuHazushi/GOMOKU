@@ -71,4 +71,4 @@ $(OBJ)/%.o: $(SRC)/%.cpp
 	$(CC) -o $@ $(CFLAGS) $< -I$(INCLUDE) -I$(SDL_HEADERS)
 	
 clean:
-	rm -rf $(BIN)/* $(OBJ)/* $(LIB)/*
+	rm -rf $(BIN)/* $(OBJ)/* $(LIB)/* $(TARGET)
