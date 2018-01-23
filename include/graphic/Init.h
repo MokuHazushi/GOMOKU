@@ -7,17 +7,17 @@
 
 #define IMAGE_FOLDER "img/"
 
+#define SCREEN_SIZE 640
+
 class MainFrame {
 	private:
-		const int SCREEN_WIDTH = 640;
-		const int SCREEN_HEIGHT = 480;
-
 		SDL_Window *win;
 		SDL_Surface *screen;
-		SDL_Surface *img;
+		SDL_Renderer *renderer;
 
 		void initGraphics();
 		void destroyGraphics();
+		void drawBoard();
 		std::string getImagePath(std::string);
 	public:
 		MainFrame();

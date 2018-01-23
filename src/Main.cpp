@@ -9,6 +9,5 @@ int main()
 {
 	MainFrame frame;
 	frame.startMainLoop();
-
 	return 0;
 }
