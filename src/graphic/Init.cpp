@@ -6,10 +6,12 @@
 #include "SDL_error.h"
 
 #include "graphic/Init.h"
+#include "graphic/Tools.h"
 
 MainFrame::MainFrame()
 {
 	initGraphics();
+	margins = Tools::getMargins(SCREEN_SIZE);
 }
 
 MainFrame::~MainFrame()
@@ -63,23 +65,23 @@ void MainFrame::startMainLoop()
 
 void MainFrame::drawBoard()
 {
-	int marginFactor = 14;
-	int stoneSize = ((marginFactor - 2) * SCREEN_SIZE / marginFactor) / 19;
+	int margin = margins[3];
+	int stoneSize = (SCREEN_SIZE - 2*margin) / 18;
 	int i;
 
 	SDL_SetRenderDrawColor(renderer, 0x00, 0x00, 0x00, 0xFF);
 
 	for (i=0; i<19; i++) {
 		SDL_RenderDrawLine(renderer, 
-				SCREEN_SIZE / marginFactor,
-				i*stoneSize + (SCREEN_SIZE / marginFactor),
-				(marginFactor-1) * SCREEN_SIZE / marginFactor,
-				i*stoneSize + (SCREEN_SIZE / marginFactor));
+				margin,
+				i*stoneSize + margin,
+				SCREEN_SIZE - margin,
+				i*stoneSize + margin);
 		SDL_RenderDrawLine(renderer,
-				i*stoneSize + (SCREEN_SIZE / marginFactor),
-				SCREEN_SIZE / marginFactor,
-				i*stoneSize + (SCREEN_SIZE / marginFactor),
-				(marginFactor-1) * SCREEN_SIZE / marginFactor);
+				i*stoneSize + margin,
+				margin,
+				i*stoneSize + margin,
+				SCREEN_SIZE - margin);
 	}
 }
 

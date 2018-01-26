@@ -1,4 +1,5 @@
 #include <string>
+#include <vector>
 
 #include "SDL.h"
 
@@ -14,6 +15,8 @@ class MainFrame {
 		SDL_Window *win;
 		SDL_Surface *screen;
 		SDL_Renderer *renderer;
+
+		std::vector<int> margins;
 
 		void initGraphics();
 		void destroyGraphics();
