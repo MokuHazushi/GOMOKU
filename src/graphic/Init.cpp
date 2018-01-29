@@ -44,16 +44,25 @@ void MainFrame::startMainLoop()
 	SDL_Event event;
 
 	while (running) {
+		int margin, stoneSize, x, y;
+		int *boardCoord;
+
 		//CLEAR BOARD
 		SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
 		SDL_RenderClear(renderer);
 
 		//DRAW BOARD
-		drawBoard();
+		drawBoard(&margin, &stoneSize);
 		SDL_RenderPresent(renderer);
 
 		//HANDLE EVENT
 		while (SDL_PollEvent(&event) != 0) {
+			if (event.type == SDL_MOUSEBUTTONDOWN) {
+				SDL_GetMouseState(&x, &y);
+				boardCoord = Tools::getBoardCoord(x, y, margin, stoneSize);
+				std::cout << "x: " << boardCoord[0] << " y: " << boardCoord[1] << std::endl;
+				delete[] boardCoord;
+			}
 			if (event.type == SDL_QUIT) {
 				running = false;
 			}
@@ -63,7 +72,7 @@ void MainFrame::startMainLoop()
 	}
 }
 
-void MainFrame::drawBoard()
+void MainFrame::drawBoard(int *_margin, int *_stoneSize)
 {
 	int margin = margins[3];
 	int stoneSize = (SCREEN_SIZE - 2*margin) / 18;
@@ -83,9 +92,7 @@ void MainFrame::drawBoard()
 				i*stoneSize + margin,
 				SCREEN_SIZE - margin);
 	}
-}
 
-std::string MainFrame::getImagePath(std::string str)
-{
-	return std::string(IMAGE_FOLDER) + str;
+	*_margin = margin;
+	*_stoneSize = stoneSize;
 }

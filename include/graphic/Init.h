@@ -6,8 +6,6 @@
 #ifndef INIT_H
 #define INIT_H
 
-#define IMAGE_FOLDER "img/"
-
 #define SCREEN_SIZE 640
 
 class MainFrame {
@@ -20,8 +18,7 @@ class MainFrame {
 
 		void initGraphics();
 		void destroyGraphics();
-		void drawBoard();
-		std::string getImagePath(std::string);
+		void drawBoard(int*, int*);
 	public:
 		MainFrame();
 		~MainFrame();

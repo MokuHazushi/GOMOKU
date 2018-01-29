@@ -27,3 +27,40 @@ std::vector<int> Tools::getMargins(int size)
 
 	return res;
 }
+
+std::string Tools::getImagePath(std::string str)
+{
+	return std::string(IMAGE_FOLDER) + str;
+}
+
+int* Tools::getBoardCoord(int x, int y, int margin, int stoneSize)
+{
+	int *res = new int[2];
+	int error = stoneSize / 2;
+	int i, j;
+
+	if (x < margin-error ||
+			x > margin+error+18*stoneSize ||
+			y < margin-error ||
+			y > margin+error+18*stoneSize) {
+		res[0] = -1;
+		res[1] = -1;
+		return res;
+	}
+
+	for (i=0; i<18; i++) {
+		if (x < margin+error+i*stoneSize &&
+				x > margin-error+i*stoneSize)
+			break;
+	}
+
+	for (j=0; j<18; j++) {
+		if (y < margin+error+j*stoneSize &&
+				y > margin-error+j*stoneSize)
+			break;
+	}
+
+	res[0] = i;
+	res[1] = j;
+	return res;
+}

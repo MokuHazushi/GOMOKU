@@ -6,11 +6,11 @@
 
 #define IMAGE_FOLDER "img/"
 
-#define SCREEN_SIZE 640
-
 class Tools {
 	public:
 		static std::vector<int> getMargins(int);
+		static std::string getImagePath(std::string);
+		static int* getBoardCoord(int,int,int,int);
 };
 
 #endif
