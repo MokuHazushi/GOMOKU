@@ -28,7 +28,21 @@ void Game::switchTurn()
 			turn = black_turn;
 			return;
 		default:
-			std::cout << "[Unknown turn_t]";
+			std::cout << "[Unknown turn_t]" << std::endl;
+	}
+}
+
+void Game::update(int x, int y)
+{
+	switch(turn) {
+		case black_turn:
+			board->getBoard()[x][y] = black_stone;
+			return;
+		case white_turn:
+			board->getBoard()[x][y] = white_stone;
+			return;
+		default:
+			std::cout << "[Unknown turn_t]" << std::endl;
 	}
 }
 

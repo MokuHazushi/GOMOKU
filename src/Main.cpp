@@ -7,7 +7,8 @@
 
 int main()
 {
-	MainFrame frame;
-	frame.startMainLoop();
+	Game *game = new Game(new Board(19), "black", "white");
+	MainFrame *frame = new MainFrame(game);
+	frame->startMainLoop();
 	return 0;
 }

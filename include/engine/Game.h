@@ -16,11 +16,13 @@ class Game {
 		std::string playerBlack;
 		std::string playerWhite;
 		turn_t turn;
+
+		void switchTurn();
 	public:
 		Game(Board*, std::string, std::string);
 
 		void startGame();
-		void switchTurn();
+		void update(int,int);
 
 		Board* getBoard();
 		std::string getPlayerBlack();

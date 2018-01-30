@@ -8,8 +8,9 @@
 #include "graphic/Init.h"
 #include "graphic/Tools.h"
 
-MainFrame::MainFrame()
+MainFrame::MainFrame(Game* _game)
 {
+	game = _game;
 	initGraphics();
 	margins = Tools::getMargins(SCREEN_SIZE);
 }
@@ -61,6 +62,10 @@ void MainFrame::startMainLoop()
 				SDL_GetMouseState(&x, &y);
 				boardCoord = Tools::getBoardCoord(x, y, margin, stoneSize);
 				std::cout << "x: " << boardCoord[0] << " y: " << boardCoord[1] << std::endl;
+
+				if (boardCoord[0] != -11 && boardCoord[1] != -1) {
+					game->update(boardCoord[0], boardCoord[1]);
+				}
 				delete[] boardCoord;
 			}
 			if (event.type == SDL_QUIT) {
@@ -76,7 +81,8 @@ void MainFrame::drawBoard(int *_margin, int *_stoneSize)
 {
 	int margin = margins[3];
 	int stoneSize = (SCREEN_SIZE - 2*margin) / 18;
-	int i;
+	int i,j;
+	Board *board = game->getBoard();
 
 	SDL_SetRenderDrawColor(renderer, 0x00, 0x00, 0x00, 0xFF);
 
@@ -91,6 +97,22 @@ void MainFrame::drawBoard(int *_margin, int *_stoneSize)
 				margin,
 				i*stoneSize + margin,
 				SCREEN_SIZE - margin);
+	}
+
+	for (i=0; i<19; i++) {
+		for (j=0; j<19; j++) {
+			switch (board->getBoard()[i][j]) {
+				case empty:
+					continue;
+					break;
+				case black_stone:
+					break;
+				case white_stone:
+					break;
+				default:
+					std::cout << "[Unknown intersection_t]" << std::endl;
+			}
+		}
 	}
 
 	*_margin = margin;
