@@ -18,6 +18,7 @@ class Game {
 		turn_t turn;
 
 		void switchTurn();
+		bool checkRules(int, int);
 	public:
 		Game(Board*, std::string, std::string);
 

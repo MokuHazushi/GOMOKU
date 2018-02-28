@@ -34,6 +34,10 @@ void Game::switchTurn()
 
 void Game::update(int x, int y)
 {
+	if (!checkRules(x, y)) {
+		return;
+	}
+
 	switch(turn) {
 		case black_turn:
 			board->getBoard()[x][y] = black_stone;
@@ -46,6 +50,17 @@ void Game::update(int x, int y)
 		default:
 			std::cout << "[Unknown turn_t]" << std::endl;
 	}
+}
+
+bool Game::checkRules(int x, int y)
+{
+	intersection_t** cur = board->getBoard();
+
+	if (cur[x][y] != empty) {
+		return false;
+	}
+
+	return true;
 }
 
 //GETTER SETTER

@@ -1,5 +1,7 @@
 #include <iostream>
 
+#include "engine/StoneString.h"
+
 #ifndef BOARD_H
 #define BOARD_H
 
@@ -32,6 +34,9 @@ class Board {
 
 		unsigned short getSize();
 		intersection_t** getBoard();
+
+		//UTILS
+		void getString(StoneString *res, int x, int y, intersection_t type);
 };
 
 #endif
