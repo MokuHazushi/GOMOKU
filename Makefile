@@ -28,9 +28,10 @@ ENGINE_LIBFILE	= "libgmEngine.a"
 GRAPHIC_LIBFILE	= "libgmGraphic.a"
 
 ### EXTERNAL LIBS
-SDL_HEADERS	= "/usr/local/include/SDL2"
+SDL_HEADERS	= "/usr/include/SDL2"
 SDL_LIBFOLDER	= "/usr/local/lib"
 SDL_LIB		= "SDL2"
+SDL_IMAGE_LIB	= "SDL2_image"
 
 GL3_HEADERS	= "/usr/local/include/GL3"
 GL_LIB 		= "GL"
@@ -47,7 +48,8 @@ all: $(TARGET)
 $(TARGET) : $(OBJ)/$(MAIN) $(ENGINE_LIBFILE) $(GRAPHIC_LIBFILE)
 	$(CC) $(LFLAGS) $< -o $@ \
 		-L$(SDL_LIBFOLDER) -L$(LIB) \
-		-l$(ENGINE_LIB) -l$(GRAPHIC_LIB) -l$(SDL_LIB) \
+		-l$(ENGINE_LIB) -l$(GRAPHIC_LIB) \
+		-l$(SDL_LIB) -l$(SDL_IMAGE_LIB) \
 		-l$(GL_LIB) #CAREFUL ORDER MATTER
 
 
@@ -68,7 +70,7 @@ $(OBJ)/graphic/%.o: $(SRC)/graphic/%.cpp
 
 
 $(OBJ)/%.o: $(SRC)/%.cpp
-	$(CC) -o $@ $(CFLAGS) $< -I$(INCLUDE) -I$(SDL_HEADERS)
+	$(CC) -o $@ $(CFLAGS) $< -I$(INCLUDE) -I$(SDL_HEADERS) -I$(GL3_HEADERS)
 	
 clean:
 	rm -rf $(BIN)/* $(OBJ)/* $(LIB)/* $(TARGET)

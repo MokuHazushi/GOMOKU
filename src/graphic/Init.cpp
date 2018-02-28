@@ -4,14 +4,17 @@
 
 #include "SDL.h"
 #include "SDL_error.h"
+#include "SDL_image.h"
 
 #include "graphic/Init.h"
 #include "graphic/Tools.h"
+#include "graphic/Images.h"
 
 MainFrame::MainFrame(Game* _game)
 {
-	game = _game;
 	initGraphics();
+	game = _game;
+	images = new Images(renderer);
 	margins = Tools::getMargins(SCREEN_SIZE);
 }
 
@@ -22,20 +25,29 @@ MainFrame::~MainFrame()
 
 void MainFrame::initGraphics()
 {
-	SDL_Init(SDL_INIT_VIDEO);
+	int res;
 
+	SDL_Init(SDL_INIT_VIDEO);
 	win = SDL_CreateWindow("GoMoku",
 			SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
 			SCREEN_SIZE, SCREEN_SIZE,
 			SDL_WINDOW_SHOWN | SDL_WINDOW_OPENGL);
 	renderer = SDL_CreateRenderer(win, -1, SDL_RENDERER_ACCELERATED);
+
+	res = IMG_Init(IMG_INIT_PNG);
+	if ((res & IMG_INIT_PNG) != IMG_INIT_PNG) {
+		std::cout << "[FAIL] : IMG_Init <" << IMG_GetError() << ">" << std::endl;
+	}
 }
 
 void MainFrame::destroyGraphics()
 {
+	delete images;
+
 	SDL_DestroyWindow(win);
 	win = NULL;
 	
+	IMG_Quit();
 	SDL_Quit();
 }
 
@@ -106,8 +118,10 @@ void MainFrame::drawBoard(int *_margin, int *_stoneSize)
 					continue;
 					break;
 				case black_stone:
+					drawStone(i, j, images->getBlackStone(), stoneSize, margin);
 					break;
 				case white_stone:
+					drawStone(i, j, images->getWhiteStone(), stoneSize, margin);
 					break;
 				default:
 					std::cout << "[Unknown intersection_t]" << std::endl;
@@ -117,4 +131,15 @@ void MainFrame::drawBoard(int *_margin, int *_stoneSize)
 
 	*_margin = margin;
 	*_stoneSize = stoneSize;
+}
+
+void MainFrame::drawStone(int i, int j, SDL_Texture* stone, int stoneSize, int margin)
+{
+	SDL_Rect dest;
+	dest.x = margin + i*stoneSize - stoneSize/2;
+	dest.y = margin + j*stoneSize - stoneSize/2;
+	dest.w = stoneSize;
+	dest.h = stoneSize;
+
+	SDL_RenderCopy(renderer, stone, NULL, &dest);
 }

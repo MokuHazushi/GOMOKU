@@ -28,11 +28,6 @@ std::vector<int> Tools::getMargins(int size)
 	return res;
 }
 
-std::string Tools::getImagePath(std::string str)
-{
-	return std::string(IMAGE_FOLDER) + str;
-}
-
 int* Tools::getBoardCoord(int x, int y, int margin, int stoneSize)
 {
 	int *res = new int[2];
