@@ -61,7 +61,7 @@ void MainFrame::startMainLoop()
 		int *boardCoord;
 
 		//CLEAR BOARD
-		SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
+		SDL_SetRenderDrawColor(renderer, 0xFF, 0xAC, 0x33, 0xFF);
 		SDL_RenderClear(renderer);
 
 		//DRAW BOARD
@@ -97,7 +97,6 @@ void MainFrame::drawBoard(int *_margin, int *_stoneSize)
 	Board *board = game->getBoard();
 
 	SDL_SetRenderDrawColor(renderer, 0x00, 0x00, 0x00, 0xFF);
-
 	for (i=0; i<19; i++) {
 		SDL_RenderDrawLine(renderer, 
 				margin,
