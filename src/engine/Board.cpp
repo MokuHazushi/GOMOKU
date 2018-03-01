@@ -51,71 +51,12 @@ void Board::printBoard()
 	}
 }
 
-//UTILS
-void Board::getString(StoneString *tempRes, int x, int y, intersection_t type) 
+bool Board::isEmpty(int x, int y)
 {
-	if (tempRes->contains(x, y)) {
-		return;
-	}
-
-	if (board[x][y] != type) {
-		return;
-	}
-
-	std::vector<std::pair<int,int>> stones = tempRes->getString();
-	stones.push_back(std::make_pair(x,y));
-
-	if (x == 0) {
-		getString(tempRes, x+1, y, type);
-
-		if (y == 0) {
-			getString(tempRes, x, y+1, type);
-		}
-		else if (y == 18) {
-			getString(tempRes, x, y-1, type);
-		}
-		else {
-			getString(tempRes, x, y+1, type);
-			getString(tempRes, x, y-1, type);
-		}
-		return;
-	}
-	else if (x == 18) {
-		getString(tempRes, x-1, y, type);
-
-		if (y == 0) {
-			getString(tempRes, x, y+1, type);
-		}
-		else if (y == 18) {
-			getString(tempRes, x, y-1, type);
-		}
-		else {
-			getString(tempRes, x, y+1, type);
-			getString(tempRes, x, y-1, type);
-		}
-		return;
-	}
-	else if (y == 0) {
-		getString(tempRes, x, y+1, type);
-		getString(tempRes, x-1, y, type);
-		getString(tempRes, x+1, y, type);
-		return;
-	}
-	else if (y == 18) {
-		getString(tempRes, x, y-1, type);
-		getString(tempRes, x-1, y, type);
-		getString(tempRes, x+1, y, type);
-		return;
-	}
-	else {
-		getString(tempRes, x+1, y, type);
-		getString(tempRes, x-1, y, type);
-		getString(tempRes, x, y+1, type);
-		getString(tempRes, x, y-1, type);
-		return;
-	}
+	return board[x][y] == empty;
 }
 
+//UTILS
 //GETTER SETTER
 
 unsigned short Board::getSize()

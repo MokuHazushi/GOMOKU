@@ -31,12 +31,10 @@ class Board {
 
 		void clearBoard();
 		void printBoard();
+		bool isEmpty(int x, int y);
 
 		unsigned short getSize();
 		intersection_t** getBoard();
-
-		//UTILS
-		void getString(StoneString *res, int x, int y, intersection_t type);
 };
 
 #endif

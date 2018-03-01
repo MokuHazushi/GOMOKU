@@ -3,6 +3,7 @@
 
 #include "engine/Game.h"
 #include "engine/Board.h"
+#include "engine/GameTools.h"
 
 //CONSTRUCTORS DESTRUCTOR
 
@@ -35,28 +36,41 @@ void Game::switchTurn()
 void Game::update(int x, int y)
 {
 	if (!checkRules(x, y)) {
+		board->getBoard()[x][y] = empty;
 		return;
 	}
 
-	switch(turn) {
-		case black_turn:
-			board->getBoard()[x][y] = black_stone;
-			switchTurn();
-			return;
-		case white_turn:
-			board->getBoard()[x][y] = white_stone;
-			switchTurn();
-			return;
-		default:
-			std::cout << "[Unknown turn_t]" << std::endl;
-	}
+	switchTurn();
+
 }
 
 bool Game::checkRules(int x, int y)
 {
 	intersection_t** cur = board->getBoard();
+	intersection_t type =
+		turn == black_turn ? black_stone : white_stone;
+	StoneString string;
 
 	if (cur[x][y] != empty) {
+		return false;
+	}
+
+	switch(turn) {
+		case black_turn:
+			board->getBoard()[x][y] = black_stone;
+			break;
+		case white_turn:
+			board->getBoard()[x][y] = white_stone;
+			break;
+		default:
+			std::cout << "[Unknown turn_t]" << std::endl;
+	}
+
+
+	GameTools::getString(board, &string, x, y, type);
+	int liberties = GameTools::countStringLiberties(board, &string);
+
+	if (liberties == 0) {
 		return false;
 	}
 
